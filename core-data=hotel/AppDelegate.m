@@ -48,7 +48,7 @@
     
     if (count == 0) {
         NSDictionary *hotels = [[NSDictionary alloc]init];
-//        NSDictionary *rooms = [[NSDictionary alloc]init];
+        //        NSDictionary *rooms = [[NSDictionary alloc]init];
         
         NSString *path = [[NSBundle mainBundle]pathForResource:@"hotels" ofType:@"json"];
         
@@ -76,24 +76,24 @@
                 newRoom.number = (NSInteger)room[@"number"];
                 newRoom.beds = (NSInteger)room[@"beds"];
                 newRoom.rate = (NSInteger)room[@"rate"];
-                                                 
-                                                 newRoom.hotel = newHotel;
+                
+                newRoom.hotel = newHotel;
             }
         }
-                                                 
         
-                                                 NSError *saveError;
-                                                 [self.persistentContainer.viewContext save:&saveError];
-                                                 
-                                                 if (saveError) {
-                                                     NSLog(@"There was an error saving to core data");
-                                                 } else {
-                                                     NSLog(@"successfuly saved to core data");
-                                                
+        
+        NSError *saveError;
+        [self.persistentContainer.viewContext save:&saveError];
+        
+        if (saveError) {
+            NSLog(@"There was an error saving to core data");
+        } else {
+            NSLog(@"successfuly saved to core data");
+            
+        }
     }
-                                                 }
-                                                 }
-                                                 
+}
+
 -(void)setupRootViewController {
     
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
@@ -159,7 +159,7 @@
                      * The device is out of space.
                      * The store could not be migrated to the current model version.
                      Check the error message to determine what the actual problem was.
-                    */
+                     */
                     NSLog(@"Unresolved error %@, %@", error, error.userInfo);
                     abort();
                 }
