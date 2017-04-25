@@ -10,11 +10,11 @@
 #import "AppDelegate.h"
 #import "Hotel+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
+#import "RoomsViewController.h"
 
 @interface HotelsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property(strong, nonatomic) NSArray *allHotels;
-
 @property(strong, nonatomic) UITableView *tableView;
 
 @end
@@ -72,6 +72,11 @@
     }
     
     return _allHotels;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIViewController *rooms = [[RoomsViewController alloc]init];
+    [self presentViewController:rooms animated:YES completion: nil];
 }
 
 
