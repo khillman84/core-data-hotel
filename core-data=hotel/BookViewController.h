@@ -13,5 +13,6 @@
 @interface BookViewController : UIViewController
 
 @property(strong, nonatomic) Room *room;
+//@property(strong, nonatomic) Room *endDate;
 
 @end
