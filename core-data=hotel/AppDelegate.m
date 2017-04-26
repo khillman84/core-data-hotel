@@ -105,7 +105,6 @@
     self.window.rootViewController = self.navController;
     
     [self.window makeKeyAndVisible];
-    
 }
 
 

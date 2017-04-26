@@ -33,8 +33,6 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-
-    [self allHotels];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
 }
@@ -75,8 +73,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController *rooms = [[RoomsViewController alloc]init];
-    [self presentViewController:rooms animated:YES completion: nil];
+    RoomsViewController *roomVC = [[RoomsViewController alloc]init];
+    roomVC.hotel = [[self allHotels] objectAtIndex:(int) indexPath.row];
+    [self.navigationController pushViewController:roomVC animated:YES];
 }
 
 
