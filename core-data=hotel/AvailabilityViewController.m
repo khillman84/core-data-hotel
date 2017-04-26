@@ -13,8 +13,9 @@
 #import "Reservation+CoreDataProperties.h"
 #import "Room+CoreDataClass.h"
 #import "Room+CoreDataProperties.h"
+#import "BookViewController.h"
 
-@interface AvailabilityViewController () <UITableViewDataSource>
+@interface AvailabilityViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property(strong, nonatomic) UITableView *tableView;
 @property(strong, nonatomic) NSArray *availableRooms;
@@ -30,7 +31,7 @@
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Reservation"];
         
-        request.predicate = [NSPredicate predicateWithFormat:@"startDate <= %@ AND endDate >= %@", self.endDate, [NSDate date]]; //reference self.startDate
+        request.predicate = [NSPredicate predicateWithFormat:@"startDate <= %@ AND endDate >= %@", self.endDate, self.startDate]; 
         
         NSError *roomError;
         NSArray *results = [appDelegate.persistentContainer.viewContext executeFetchRequest:request error: &roomError];
@@ -62,22 +63,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    
 }
 
 -(void)setupTableView {
     
     self.tableView = [[UITableView alloc]init];
-    
-    self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [AutoLayout fullScreenContraintsWithVFLForView:self.tableView];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
 }
 
@@ -93,6 +89,12 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%i", currentRoom.number];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    BookViewController *book = [[BookViewController alloc]init];
+    book.room = self.availableRooms[indexPath.row];
+    [self.navigationController pushViewController:book animated:YES];
 }
 
 @end
