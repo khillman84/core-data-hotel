@@ -1,4 +1,4 @@
- //
+//
 //  AvailabilityViewController.m
 //  core-data=hotel
 //
