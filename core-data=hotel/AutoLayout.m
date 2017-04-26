@@ -15,12 +15,12 @@
     
     NSDictionary *viewDictionary = @{@"view": view};
     
-    NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]"
+    NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:viewDictionary];
     
-    NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view]"
+    NSArray *verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:viewDictionary];
