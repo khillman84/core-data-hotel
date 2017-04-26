@@ -10,6 +10,7 @@
 #import "AutoLayout.h"
 #import "HotelsViewController.h"
 #import "AppDelegate.h"
+#import "DatePickerViewController.h"
 
 @interface ViewController ()
 
@@ -34,18 +35,41 @@
     UIButton *lookupButton = [self createButtonWithTitle:@"Look UP"];
     
     browseButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:.75 alpha:1.0];
+    bookButton.backgroundColor = [UIColor colorWithRed:.75 green:1.0 blue:1.0 alpha:1.0];
+    lookupButton.backgroundColor = [UIColor colorWithRed:1.0 green:.75 blue:1.0 alpha:1.0];
     
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
     
-    NSLayoutConstraint *browseHeight = [AutoLayout equalHeightConstraintFromView:browseButton toView:self.view withMultiplier:0.33];
+    [AutoLayout leadingConstraintFrom:bookButton toView:self.view];
+    [AutoLayout trailingConstraintFrom:bookButton toView:self.view];
+    
+    [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
+    [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
+    
+    NSLayoutConstraint *browseButtonTop = [AutoLayout genericConstraintFrom:browseButton toView:self.view withAttribute:NSLayoutAttributeTop];
+    NSLayoutConstraint *bookButtonCenter = [AutoLayout genericConstraintFrom:bookButton toView:self.view withAttribute:NSLayoutAttributeCenterY];
+    
+    browseButtonTop.constant = navBarHeight;
+    bookButtonCenter.constant = navBarHeight / 2;
     
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    
+    [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)browseButtonSelected {
     HotelsViewController *vc = [[HotelsViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)bookButtonSelected {
+    DatePickerViewController *datePickerController = [[DatePickerViewController alloc]init];
+    [self.navigationController pushViewController:datePickerController animated:YES];
+}
+
+-(void)lookupButtonSelected {
+    NSLog(@"do stuff");
 }
 
 -(UIButton *)createButtonWithTitle:(NSString *)title {
@@ -61,6 +85,7 @@
     
     return button;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
