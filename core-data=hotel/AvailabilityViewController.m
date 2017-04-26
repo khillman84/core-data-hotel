@@ -1,4 +1,4 @@
-//
+ //
 //  AvailabilityViewController.m
 //  core-data=hotel
 //
@@ -93,7 +93,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     BookViewController *book = [[BookViewController alloc]init];
-    book.room = self.availableRooms[indexPath.row];
+    book.room = [[self availableRooms] objectAtIndex:(int) indexPath.row];
     [self.navigationController pushViewController:book animated:YES];
 }
 
