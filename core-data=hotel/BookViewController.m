@@ -44,7 +44,7 @@
     self.firstNameField = [[UITextField alloc]init];
     [self.view addSubview:self.firstNameField];
     self.firstNameField.translatesAutoresizingMaskIntoConstraints = NO;
-    self.firstNameField.backgroundColor = [UIColor lightGrayColor];
+    self.firstNameField.backgroundColor = [UIColor whiteColor];
     
     [AutoLayout setConstraintConstantsFrom:self.firstNameField toView:self.view withAttribute:NSLayoutAttributeTop andConstant:200];
     [AutoLayout setConstraintConstantsFrom:self.firstNameField toView:self.view withAttribute:NSLayoutAttributeLeft andConstant:40];
@@ -54,7 +54,7 @@
     self.lastNameField = [[UITextField alloc]init];
     [self.view addSubview:self.lastNameField];
     self.lastNameField.translatesAutoresizingMaskIntoConstraints = NO;
-    self.lastNameField.backgroundColor = [UIColor lightGrayColor];
+    self.lastNameField.backgroundColor = [UIColor whiteColor];
     
     [AutoLayout setConstraintConstantsFrom:self.lastNameField toView:self.view withAttribute:NSLayoutAttributeTop andConstant:200];
     [AutoLayout setConstraintConstantsFrom:self.lastNameField toView:self.view withAttribute:NSLayoutAttributeLeft andConstant:40];
@@ -80,14 +80,13 @@
     Reservation *reservation = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:context];
     
     reservation.startDate = [NSDate date];
-//    reservation.endDate = self.endDate;
+    reservation.endDate = [NSDate date];
     reservation.room = self.room;
     
-//    self.room.reservation = [self.room.reservation setByAddingObject:reservation];
-//    
-//    reservation.guest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
-//    reservation.guest.firstName = self.firstNameField.text;
-//    reservation.guest.lastName = self.lastName.text;
+    
+    reservation.guest = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
+    reservation.guest.firstName = self.firstNameField.text;
+    reservation.guest.lastName = self.lastNameField.text;
     
     NSError *saveError;
     [context save:&saveError];
