@@ -31,5 +31,10 @@
 +(NSLayoutConstraint *)trailingConstraintFrom:(UIView *)view
                                        toView:(UIView *)otherView;
 
++(NSLayoutConstraint *)setConstraintConstantsFrom: (UIView *)view
+                                           toView:(UIView *)superView
+                                    withAttribute: (NSLayoutAttribute)attribute
+                                      andConstant: (CGFloat)constant;
+
 
 @end

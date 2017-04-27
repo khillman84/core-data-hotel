@@ -53,6 +53,26 @@
     
 }
 
++(NSLayoutConstraint *)setConstraintConstantsFrom: (UIView *)view
+                                           toView:(UIView *)superView
+                                    withAttribute: (NSLayoutAttribute)attribute
+                                      andConstant: (CGFloat)constant{
+    
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:attribute
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:superView
+                                                                  attribute:attribute
+                                                                 multiplier:1.0
+                                                                   constant:constant];
+    
+    constraint.active = YES;
+    
+    return constraint;
+    
+}
+
+
 +(NSLayoutConstraint *)genericConstraintFrom:(UIView *)view
                                       toView:(UIView *)superView
                                withAttribute:(NSLayoutAttribute)attribute {
