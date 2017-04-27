@@ -6,6 +6,11 @@
 //  Copyright © 2017 Kyle Hillman. All rights reserved.
 //
 
+
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
+
 #import "AppDelegate.h"
 #import "ViewController.h"
 
@@ -27,6 +32,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [Fabric with:@[[Crashlytics class]]];
     
     [self setupRootViewController];
     [self bootstrapApp];
@@ -74,7 +81,7 @@
                 Room *newRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Room" inManagedObjectContext:self.persistentContainer.viewContext];
                 newRoom.number = [(NSNumber *)room[@"number"]intValue];
                 newRoom.beds = [(NSNumber *)room[@"beds"]intValue];
-                newRoom.rate = [(NSNumber *)room[@"rate"]floatValue];
+                newRoom.cost = [(NSNumber *)room[@"rate"]floatValue];
                 
                 newRoom.hotel = newHotel;
             }

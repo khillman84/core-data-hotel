@@ -6,6 +6,8 @@
 //  Copyright © 2017 Kyle Hillman. All rights reserved.
 //
 
+@import Crashlytics;
+
 #import "ViewController.h"
 #import "AutoLayout.h"
 #import "HotelsViewController.h"
@@ -59,11 +61,17 @@
 }
 
 -(void)browseButtonSelected {
+    
+    [Answers logCustomEventWithName:@"View Controller - Browse Button Pressed" customAttributes:nil];
+    
     HotelsViewController *vc = [[HotelsViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)bookButtonSelected {
+    
+    [Answers logCustomEventWithName:@"View Controller - Book Button Pressed" customAttributes:nil];
+    
     DatePickerViewController *datePickerController = [[DatePickerViewController alloc]init];
     [self.navigationController pushViewController:datePickerController animated:YES];
 }

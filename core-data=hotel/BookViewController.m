@@ -6,6 +6,8 @@
 //  Copyright © 2017 Kyle Hillman. All rights reserved.
 //
 
+@import Crashlytics;
+
 #import "BookViewController.h"
 #import "AppDelegate.h"
 #import "Guest+CoreDataClass.h"
@@ -93,6 +95,7 @@
     
     if (saveError) {
         NSLog(@"Save error is %@", saveError);
+        
     }else{
         NSLog(@"Save reservation successful");
     }
