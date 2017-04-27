@@ -36,6 +36,10 @@
                                     withAttribute: (NSLayoutAttribute)attribute
                                       andConstant: (CGFloat)constant;
 
++(NSLayoutConstraint *)equalWidthConstraintFrom:(UIView *)view
+                                         toView:(UIView *)otherView
+                                 withMultiplier:(CGFloat)multiplier;
+
 +(NSArray *)constraintsWithVFLForViewDictionary:(NSDictionary *)viewDictionary
                            forMetricsDictionary:(NSDictionary *)metricsDictionary
                                     withOptions:(NSLayoutFormatOptions)options

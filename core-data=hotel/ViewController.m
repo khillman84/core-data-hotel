@@ -13,6 +13,7 @@
 #import "HotelsViewController.h"
 #import "AppDelegate.h"
 #import "DatePickerViewController.h"
+#import "LookUpViewController.h"
 
 @interface ViewController ()
 
@@ -71,6 +72,8 @@
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     
     [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    
+    [lookupButton addTarget:self action:@selector(lookupButtonSelected) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)browseButtonSelected {
@@ -90,7 +93,8 @@
 }
 
 -(void)lookupButtonSelected {
-    NSLog(@"do stuff");
+    LookUpViewController *datePickerController = [[LookUpViewController alloc]init];
+    [self.navigationController pushViewController:datePickerController animated:YES];
 }
 
 -(UIButton *)createButtonWithTitle:(NSString *)title {
