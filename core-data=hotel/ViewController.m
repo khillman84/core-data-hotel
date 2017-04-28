@@ -6,11 +6,14 @@
 //  Copyright © 2017 Kyle Hillman. All rights reserved.
 //
 
+@import Crashlytics;
+
 #import "ViewController.h"
 #import "AutoLayout.h"
 #import "HotelsViewController.h"
 #import "AppDelegate.h"
 #import "DatePickerViewController.h"
+#import "LookUpViewController.h"
 
 @interface ViewController ()
 
@@ -37,6 +40,19 @@
     browseButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:.75 alpha:1.0];
     bookButton.backgroundColor = [UIColor colorWithRed:.75 green:1.0 blue:1.0 alpha:1.0];
     lookupButton.backgroundColor = [UIColor colorWithRed:1.0 green:.75 blue:1.0 alpha:1.0];
+
+    CGFloat statusBarHeight = 20.0;
+    CGFloat topMargin = navBarHeight + statusBarHeight;
+    CGFloat windowHeight = self.view.frame.size.height;
+    CGFloat buttonHeight = ((windowHeight - topMargin) / 3);
+    
+    NSDictionary *viewDictionary = @{@"browseButton": browseButton, @"bookButton": bookButton, @"lookupButton": lookupButton};
+    
+    NSDictionary *metricsDictionary = @{@"topMargin": [NSNumber numberWithFloat:topMargin], @"buttonHeight": [NSNumber numberWithFloat:buttonHeight]};
+    
+    NSString *visualFormatString = @"V:|-topMargin-[browseButton(==buttonHeight)][bookButton(==browseButton)][lookupButton(==browseButton)]|";
+    
+    [AutoLayout constraintsWithVFLForViewDictionary:viewDictionary forMetricsDictionary:metricsDictionary withOptions:0 withVisualFormat:visualFormatString];
     
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
@@ -56,20 +72,29 @@
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     
     [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    
+    [lookupButton addTarget:self action:@selector(lookupButtonSelected) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)browseButtonSelected {
+    
+    [Answers logCustomEventWithName:@"View Controller - Browse Button Pressed" customAttributes:nil];
+    
     HotelsViewController *vc = [[HotelsViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)bookButtonSelected {
+    
+    [Answers logCustomEventWithName:@"View Controller - Book Button Pressed" customAttributes:nil];
+    
     DatePickerViewController *datePickerController = [[DatePickerViewController alloc]init];
     [self.navigationController pushViewController:datePickerController animated:YES];
 }
 
 -(void)lookupButtonSelected {
-    NSLog(@"do stuff");
+    LookUpViewController *datePickerController = [[LookUpViewController alloc]init];
+    [self.navigationController pushViewController:datePickerController animated:YES];
 }
 
 -(UIButton *)createButtonWithTitle:(NSString *)title {

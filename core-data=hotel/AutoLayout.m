@@ -103,7 +103,29 @@
     return [AutoLayout genericConstraintFrom:view toView:otherView withAttribute:NSLayoutAttributeTrailing];
     
 }
+
++(NSLayoutConstraint *)equalWidthConstraintFrom:(UIView *)view
+                                         toView:(UIView *)otherView
+                                 withMultiplier:(CGFloat)multiplier{
+    NSLayoutConstraint *widthConstraint = [AutoLayout genericConstraintFrom:view toView:otherView withAttribute:NSLayoutAttributeWidth andMultiplier:multiplier];
     
+    return widthConstraint;
+}
+
++(NSArray *)constraintsWithVFLForViewDictionary:(NSDictionary *)viewDictionary
+                           forMetricsDictionary:(NSDictionary *)metricsDictionary
+                                    withOptions:(NSLayoutFormatOptions)options
+                               withVisualFormat:(NSString *)visualFormat{
+    NSArray *constraints = [[NSArray alloc]init];
+    
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:visualFormat
+                                                          options:options
+                                                          metrics:metricsDictionary
+                                                            views:viewDictionary];
+    [NSLayoutConstraint activateConstraints:constraints];
+    return constraints.copy;
+}
+
 
 @end
 

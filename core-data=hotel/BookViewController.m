@@ -6,6 +6,8 @@
 //  Copyright © 2017 Kyle Hillman. All rights reserved.
 //
 
+@import Crashlytics;
+
 #import "BookViewController.h"
 #import "AppDelegate.h"
 #import "Guest+CoreDataClass.h"
@@ -21,6 +23,7 @@
 
 @property(strong, nonatomic) UITextField *firstNameField;
 @property(strong, nonatomic) UITextField *lastNameField;
+@property(strong, nonatomic) UITextField *emailField;
 
 @end
 
@@ -45,21 +48,53 @@
     [self.view addSubview:self.firstNameField];
     self.firstNameField.translatesAutoresizingMaskIntoConstraints = NO;
     self.firstNameField.backgroundColor = [UIColor whiteColor];
-    
-    [AutoLayout setConstraintConstantsFrom:self.firstNameField toView:self.view withAttribute:NSLayoutAttributeTop andConstant:200];
-    [AutoLayout setConstraintConstantsFrom:self.firstNameField toView:self.view withAttribute:NSLayoutAttributeLeft andConstant:40];
-    [AutoLayout setConstraintConstantsFrom:self.firstNameField toView:self.view withAttribute:NSLayoutAttributeRight andConstant:-40];
+    self.firstNameField.layer.cornerRadius=8.0f;
+    self.firstNameField.layer.masksToBounds=YES;
+    self.firstNameField.layer.borderColor=[[UIColor blackColor]CGColor];
+    self.firstNameField.layer.borderWidth= 1.0f;
     self.firstNameField.placeholder = @"First Name";
     
     self.lastNameField = [[UITextField alloc]init];
     [self.view addSubview:self.lastNameField];
     self.lastNameField.translatesAutoresizingMaskIntoConstraints = NO;
     self.lastNameField.backgroundColor = [UIColor whiteColor];
+    self.lastNameField.layer.cornerRadius=8.0f;
+    self.lastNameField.layer.masksToBounds=YES;
+    self.lastNameField.layer.borderColor=[[UIColor blackColor]CGColor];
+    self.lastNameField.layer.borderWidth= 1.0f;
+    self.lastNameField.placeholder = @"Last Name";
     
-    [AutoLayout setConstraintConstantsFrom:self.lastNameField toView:self.view withAttribute:NSLayoutAttributeTop andConstant:200];
-    [AutoLayout setConstraintConstantsFrom:self.lastNameField toView:self.view withAttribute:NSLayoutAttributeLeft andConstant:40];
-    [AutoLayout setConstraintConstantsFrom:self.lastNameField toView:self.view withAttribute:NSLayoutAttributeRight andConstant:-40];
-    self.firstNameField.placeholder = @"Last Name";
+    self.emailField = [[UITextField alloc]init];
+    [self.view addSubview:self.emailField];
+    self.emailField.translatesAutoresizingMaskIntoConstraints = NO;
+    self.emailField.backgroundColor = [UIColor whiteColor];
+    self.emailField.layer.cornerRadius=8.0f;
+    self.emailField.layer.masksToBounds=YES;
+    self.emailField.layer.borderColor=[[UIColor blackColor]CGColor];
+    self.emailField.layer.borderWidth= 1.0f;
+    self.emailField.placeholder = @"Email";
+
+    float navBarHeight = CGRectGetHeight(self.navigationController.navigationBar.frame);
+    CGFloat statusBarHeight = 20.0;
+    CGFloat topMargin = navBarHeight + statusBarHeight;
+    CGFloat windowHeight = self.view.frame.size.height;
+    CGFloat height = ((windowHeight - topMargin - 16) / 6);
+    
+    NSDictionary *viewDictionary = @{@"firstNameField": self.firstNameField,@"lastNameField": self.lastNameField,@"emailField": self.emailField};
+    
+    NSDictionary *metricsDictionary = @{@"topMargin": [NSNumber numberWithFloat:topMargin], @"height": [NSNumber numberWithFloat:height]};
+    
+    NSString *visualFormatString = @"V:|-topMargin-[firstNameField(==firstNameField)][lastNameField(==firstNameField)][emailField(==firstNameField)]-16-|";
+    
+    [AutoLayout constraintsWithVFLForViewDictionary:viewDictionary forMetricsDictionary:metricsDictionary withOptions:0 withVisualFormat:visualFormatString];
+
+    [AutoLayout equalWidthConstraintFrom:self.firstNameField toView:self.view withMultiplier:0.8];
+    [AutoLayout equalWidthConstraintFrom:self.lastNameField toView:self.view withMultiplier:0.8];
+    [AutoLayout equalWidthConstraintFrom:self.emailField toView:self.view withMultiplier:0.8];
+
+    [AutoLayout genericConstraintFrom:self.firstNameField toView:self.view withAttribute:NSLayoutAttributeCenterX];
+    [AutoLayout genericConstraintFrom:self.lastNameField toView:self.view withAttribute:NSLayoutAttributeCenterX];
+    [AutoLayout genericConstraintFrom:self.emailField toView:self.view withAttribute:NSLayoutAttributeCenterX];
 
 }
 
@@ -93,6 +128,7 @@
     
     if (saveError) {
         NSLog(@"Save error is %@", saveError);
+        
     }else{
         NSLog(@"Save reservation successful");
     }
